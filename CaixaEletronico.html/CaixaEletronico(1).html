@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Caixa Eletrônico</title>
+
+
+	<script>
+
+		var name = prompt("Qual o seu nome?");
+		var saldo = 100.5;
+		var senha = 3589;
+		alert("Olá, " + name + " é um prazer ter você por aqui!");
+
+		function inicio() {
+
+			var option = parseInt(prompt('Selecione uma opção (1) Saldo (2) Extrato (3) Saque (4) Depósito (5) Transferência (6) Sair'));
+
+			switch (option) {
+
+				case 1:
+					ver_saldo();
+					break;
+
+				case 2:
+					ver_extrato();
+					break;
+
+				case 3:
+					fazer_saque();
+					break;
+
+				case 4:
+					fazer_deposito();
+					break;
+
+				case 5:
+					fazer_transferencia();
+					break;
+
+				case 6:
+					sair();
+					break;
+
+				default:
+					erro();
+					break;
+
+			}
+		}
+
+		function ver_saldo() {
+			var senhaInput = parseInt(prompt("Insira a senha de acesso"));
+			if (senhaInput === senha) {
+				alert('Seu saldo atual é: ' + saldo);
+				inicio();
+			}
+			else {
+				ver_saldo();
+			}
+
+		}
+
+		function ver_extrato() {
+			var senhaInput = parseInt(prompt("Insira a senha de acesso"));
+			if (senhaInput === senha) {
+				alert("Hoje:\n  Petshop da Malu - R$70,00\n  Restaurante Maranduba - R$180,00 \nOntem:\n  Supermercado JGomes - R$23,90\n  Willian Ribeiro + 230,00\n  Lais Caroline + 32,00\n  Edson José + 150,00\n  Gabriel Augusto + 50,00...");
+				inicio();
+			}
+			else {
+				ver_extrato();
+			}
+		}
+
+
+		function fazer_saque() {
+			var senhaInput = parseInt(prompt("Insira a senha de acesso"));
+			var saque;
+
+			if (senhaInput === senha) {
+
+				while (true) {
+					saque = parseFloat(prompt('Qual o valor para saque?'));
+					if (isNaN(saque) || saque <= 0 || saque === " ") {
+						alert('Por favor, informe um valor válido (operação não autorizada).');
+
+
+					}
+					else {
+						saldo -= saque;
+						ver_saldo();
+					}
+				}
+			}
+			if (senhaInput != senha) {
+				fazer_saque();
+
+			}
+		}
+		function fazer_deposito() {
+			var senhaInput = parseInt(prompt("Insira a senha de acesso"));
+			var deposito;
+
+			if (senhaInput === senha) {
+
+				while (true) {
+					deposito = parseFloat(prompt('Qual o valor para depósito?'));
+
+					if (isNaN(deposito) || deposito <= 0) {
+						alert('Por favor, informe um valor válido (operação não autorizada).');
+					}
+					else {
+						saldo += deposito;
+						ver_saldo();
+					}
+				}
+
+			}
+			if (senhaInput != senha) {
+				fazer_deposito();
+
+			}
+		}
+
+
+		function fazer_transferencia() {
+			var senhaInput = parseInt(prompt("Insira a senha de acesso"));
+			var destinatario;
+			var valor;
+
+			if (senhaInput === senha) {
+
+				while (true) {
+
+					destinatario = parseInt(prompt('Informe o número da conta do destinatário:'));
+
+					if (isNaN(destinatario)) {
+						alert('Por favor, informe um número de conta válido (operação não autorizada).');
+
+					}
+					else {
+						while (isNaN(valor) || valor <= 0) {
+							valor = parseFloat(prompt('Qual o valor da transferência?'));
+
+							if (isNaN(valor) || valor <= 0) {
+								alert('Por favor, informe um valor válido (operação não autorizada).');
+
+							}
+							else if (valor > saldo) {
+								alert('Saldo Insuficiente (operação não autorizada).');
+							}
+							else {
+								saldo -= valor;
+								alert('Transferência de R$' + valor + ' para a conta ' + destinatario + ' realizada com sucesso.');
+								ver_saldo();
+							}
+						}
+					}
+				}
+
+			}
+			if (senhaInput != senha) {
+				fazer_transferencia();
+			}
+		}
+
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 6.');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				alert(name + ", foi um prazer ter você por aqui!");
+				window.close();
+
+			} else {
+				inicio();
+			}
+		}
+
+		inicio();
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>
